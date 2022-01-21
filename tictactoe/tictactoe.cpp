@@ -1,7 +1,7 @@
 #include <iostream>
 
 void turn(bool playerTurn);
-int determine_winner(char board[3][3]);
+int determine_winner(bool playerTurn);
 void display_board(char board[3][3]);
 
 int input_coordinate(char axis);
@@ -13,6 +13,8 @@ char board[3][3]{
     {' ', ' ', ' '},
     {' ', ' ', ' '}
 };
+
+int coordinates[2]{ 0, 0 };
 
 int main()
 {
@@ -39,15 +41,16 @@ int main()
         display_board(board);
 
         playerTurn = !playerTurn;
-    }
+    } 
 }
 
 void turn(bool playerTurn) {
-    int coordinates[2]{ 0, 0 };
     bool compValidCoords = false;
+    int xCoord, yCoord;
 
-    while (compValidCoords = false) {
-        int xCoord{ input_coordinate(x) }, yCoord{ input_coordinate(y) };
+    while (compValidCoords == false) {
+        xCoord = input_coordinate('x');
+        yCoord = input_coordinate('y');
 
         if (verify_coordinates(xCoord, yCoord) == 0) {
             compValidCoords = true;
@@ -66,7 +69,7 @@ int input_coordinate(char axis) {
         std::cin >> tempCoord;
 
         if (tempCoord >= 1 && tempCoord <= 3) {
-            if (axis == x) {
+            if (axis == 'x') {
                 return(tempCoord - 1);
                 validCoordEntered = true;
             }
@@ -94,13 +97,14 @@ int input_coordinate(char axis) {
 }
 
 int verify_coordinates(int xCoord, int yCoord) {
-    if (board[xCoord][yCoord] == ' ') {
-        coordinates[0] = xCoord;
-        coordinates[1] = yCoord;
+    if (board[yCoord][xCoord] == ' ') {
+        coordinates[0] = yCoord;
+        coordinates[1] = xCoord;
         return(0);
     }
 
     else {
+        std::cout << "This coordinate has an " << board[yCoord][xCoord] << " on it. Enter another coordinate. \n";
         return(1);
     }
 }
