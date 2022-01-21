@@ -1,7 +1,7 @@
 #include <iostream>
 
 void turn(bool playerTurn);
-int determine_winner(bool playerTurn);
+int determine_winner(int coordinates[2], bool playerTurn, char board[3][3], int turnNumber);
 void display_board(char board[3][3]);
 
 int input_coordinate(char axis);
@@ -21,16 +21,18 @@ int main()
     bool playerTurn{ false };
     bool isWinnerDecided{ false };
 
+    int turnNumber{0};
+
     while (isWinnerDecided == false) {
         turn(playerTurn);
 
-        switch (determine_winner(board)) {
+        switch (determine_winner(coordinates, playerTurn, board, turnNumber)) {
         case 0:
             break;
-        case 1:
+        case 120:
             std::cout << "Player 1 Wins!";
             break;
-        case 2:
+        case 111:
             std::cout << "Player 2 Wins!";
             break;
         case 3:
@@ -41,6 +43,7 @@ int main()
         display_board(board);
 
         playerTurn = !playerTurn;
+        turnNumber++;
     } 
 }
 
